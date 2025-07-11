@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Test Editor</title>
+  </head>
+  <body>
+    <h1>Collaborative Editor (Test)</h1>
+    <textarea id="editor" rows="10" cols="50"></textarea>
+
+    <script>
+      const socket = new WebSocket("ws://localhost:5000");
+      const editor = document.getElementById("editor");
+
+      socket.onopen = () => {
+        console.log("Connected to WebSocket server");
+      };
+
+      socket.onmessage = (event) => {
+        const message = JSON.parse(event.data);
+        if (message.type === "init" || message.type === "update") {
+          editor.value = message.data;
+        }
+      };
+
+      editor.addEventListener("input", () => {
+        const updatedText = editor.value;
+        socket.send(JSON.stringify({ type: "update", data: updatedText }));
+      });
+    </script>
+  </body>
+</html>
