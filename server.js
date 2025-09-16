@@ -51,8 +51,7 @@ app.get('/', (req, res) => {
 });
 
 // Start server
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;  // ✅ use Render’s assigned port
 server.listen(PORT, "0.0.0.0", () => {
-  console.log(`🚀 Server is live at port ${PORT}`);
+  console.log(`🚀 Server is live on port ${PORT}`);
 });
-
