@@ -7,7 +7,13 @@ function App() {
   const isRemote = useRef(false); // prevent echo on local typing
 
   useEffect(() => {
-    socketRef.current = new WebSocket('ws://localhost:5000');
+    const socketURL =
+  process.env.NODE_ENV === "production"
+    ? "wss://collabrative-text-editor-ix4a.onrender.com"
+    : "ws://localhost:5000";
+
+socketRef.current = new WebSocket(socketURL);
+
 
     socketRef.current.onopen = () => {
       console.log('✅ Connected to WebSocket server');
