@@ -36,12 +36,10 @@ function App() {
   }
 
   useEffect(() => {
-    // Choose correct WebSocket URL
+    // ✅ This is the corrected, dynamic WebSocket URL
     const socketURL =
       process.env.REACT_APP_WS_URL ||
-      (window.location.protocol === "https:"
-        ? "wss://localhost:5000"
-        : "ws://localhost:5000");
+      `${window.location.protocol === "https:" ? "wss" : "ws"}://${window.location.host}`;
 
     connectSocket(socketURL);
 
