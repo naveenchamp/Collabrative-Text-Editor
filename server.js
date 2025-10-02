@@ -10,11 +10,10 @@ app.use(cors());
 // ✅ ADD THESE TWO LINES BACK TO SERVE YOUR FRONT-END
 // ✅ ADD THIS CODE
 // Serve the built React app
-app.use(express.static(path.join(__dirname, 'build')));
-
-// For any route that is not a static file, send the React app's index.html
+// ✅ This is the CORRECT code
+app.use(express.static(path.join(__dirname, 'client/build')));
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+  res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
 });
 
 // Create HTTP and WebSocket server
